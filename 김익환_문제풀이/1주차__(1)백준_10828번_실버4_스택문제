@@ -1,0 +1,57 @@
+#include<iostream>
+#include<stack>
+#include<string>
+
+using namespace std;
+
+int main() {
+
+	stack<int> stk;
+	int N;
+	string str;
+	int num;
+
+	cin >> N;
+
+	for (int i = 0; i < N; i++) {
+		cin >> str;
+
+		if (str == "push") {
+			cin >> num;
+			stk.push(num);
+		}
+		else if (str == "pop") {
+			if (stk.empty() == false) {
+				int p_n = stk.top();
+				cout << p_n << '\n';
+				stk.pop();
+			}
+			else {
+				cout << -1 << '\n';
+			}
+				
+		}
+		else if (str == "size") {
+			cout << stk.size() << '\n';
+		}
+		else if (str == "empty") {
+			if (stk.empty() == true) {
+				cout << 1 << '\n';
+			}
+			else {
+				cout << 0 << '\n';
+			}
+		}
+		else if (str == "top") {
+			if (stk.empty() == true) {
+				cout << -1 << '\n';
+			}
+			else {
+				cout << stk.top() << '\n';
+			}
+		}
+	}
+
+
+	return 0;
+}

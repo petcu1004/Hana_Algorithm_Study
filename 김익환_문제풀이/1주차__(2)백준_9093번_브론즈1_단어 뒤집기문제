@@ -1,0 +1,53 @@
+
+// getline()을 사용할때 이전에 cin을 새용하면 '\n'이 입력되는 것을 생각해야 실수를 하지 않을 수 있었다.
+// sstream을 사용함으로써 코드를 좀 더 간결하게 짤 수 있었다.
+
+#include<iostream>
+#include<sstream>
+#include<string>
+#include<vector>
+#include<algorithm>
+
+using namespace std;
+
+int main() {
+	int T;
+
+	cin >> T;
+	cin.ignore();
+
+	for (int i = 0; i < T; i++) {
+		vector<string> v;
+
+		string str;
+		string s;
+		int size;
+
+		
+
+		getline(cin, str, '\n');
+
+		//cout << str << '\n';
+
+		stringstream ss(str);
+
+		while (ss >> s) {
+			v.push_back(s);
+		}
+
+		size = v.size();
+		for (int j = 0; j < size; j++) {
+			reverse(v[j].begin(), v[j].end());
+			
+			cout << v[j];
+			if (j != size - 1) {
+				cout << " ";
+			}
+			else {
+				cout << '\n';
+			}
+		}
+	}
+
+
+}

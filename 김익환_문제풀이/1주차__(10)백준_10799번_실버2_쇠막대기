@@ -1,0 +1,37 @@
+#include<iostream>
+#include<string>
+
+using namespace std;
+
+int main() {
+
+	string str;		// 괄호표현
+	int sol = 0;	// 잘린 총 철의 개수
+	int fe = 0;	// 현재 위치의 쇠막대기 개수
+
+	cin >> str;
+
+	for (int i = 0; i < str.size(); i++) {
+		// '('이 나오면 우선 막대기가 나왔다고 가정하여 fe의 개수를 1개추가
+		if (str[i] == '(') {
+			fe += 1;
+		}
+		// ')'이 나왔을때
+		else if (str[i] == ')') {
+			// 이전에 나온 문자가 '('이면 레이저를 나타내므로 추가했던 철의 개수를 1개 줄이고 잘린 왼쪽 철의 개수를 sol에 추가
+			if (str[i - 1] == '(') {
+				fe -=1;
+				sol += fe;
+			}
+			// 이전에 나온 문자가 ')'이면 하나의 쇠막대기의 오른쪽 끝을 나타내므로 sol에 1추가, fe 1감소
+			else {
+				sol += 1;
+				fe -= 1;
+			}
+		}
+	}
+	cout << sol;
+
+
+	return 0;
+}
