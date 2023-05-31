@@ -1,0 +1,57 @@
+#include<iostream>
+#include<string>
+#include<vector>
+
+using namespace std;
+
+int main() {
+
+	int T;
+
+	cin >> T;
+
+	for (int i = 0; i < T; i++) {
+		string str;
+		vector<char> v;
+		int flag = 0;
+
+		cin >> str;
+
+		for (int j = 0; j < str.size(); j++) {
+
+			if (v.empty() == true) {
+				if (str[j] == '(') {
+					v.push_back('(');
+				}
+				else {
+					cout << "NO" << '\n';
+					flag = 1;
+					break;
+				}
+			}
+			else {
+				if (str[j] == '(') {
+					v.push_back('(');
+				}
+				else {
+					v.pop_back();
+				}
+			}
+		}
+
+		if (flag == 0) {
+			if (v.size() == 0) {
+				cout << "YES" << '\n';
+			}
+			else {
+				cout << "NO" << '\n';
+			}
+		}
+
+		flag = 0;
+	}
+
+
+
+	return 0;
+}
