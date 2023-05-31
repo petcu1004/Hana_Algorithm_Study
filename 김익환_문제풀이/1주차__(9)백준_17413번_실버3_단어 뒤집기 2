@@ -1,0 +1,65 @@
+#include<iostream>
+#include<string>
+#include<stack>
+
+using namespace std;
+
+
+string str;
+int flag = 0;
+stack<char> stk;
+string tag = "";
+
+
+void print_stk() {
+	while (!stk.empty()) {
+		cout << stk.top();
+		stk.pop();
+	}
+}
+
+int main() {
+
+
+
+	getline(cin, str, '\n');
+
+	for (int i = 0; i < str.size(); i++) {
+		if (str[i] == '<') {
+			flag = 1;
+			tag += '<';
+
+			if (!stk.empty()) {
+				print_stk();
+			}
+		}
+		else if (str[i] == '>') {
+			tag += '>';
+			cout << tag;
+			tag = "";
+			flag = 0;
+		}
+		else {
+			if (flag == 1) {
+				tag += str[i];
+			}
+			else {
+				if (str[i] == ' ') {
+					if (!stk.empty()) {
+						print_stk();
+					}
+					cout << ' ';
+				}
+				else {
+					stk.push(str[i]);
+				}
+			}
+		}
+	}
+
+	if (!stk.empty()) {
+		print_stk();
+	}
+
+	return 0;
+}
