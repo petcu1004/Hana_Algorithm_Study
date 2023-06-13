@@ -1,0 +1,56 @@
+# 15663_N과 M(9).py
+
+# 풀이) 이 문제 또한 순열 라이브러리를 이용하여 풀려고 했지만 시간 초과가 나왔다. 
+#       DFS를 이용하여 풀어야 했던 문제였다. 어느 정도까지가 라이브러리로 감당이 되고, 어느 정도 이상 가야지 DFS가 필요한 지 알고싶다.
+
+# 이렇게 sys 함수를 써도 시간초과 나왔다. k라는 리스트에 이전에 넣었던 튜플들을 넣고 존재하는지 안하는지를 구분해서 풀면 정답은 잘 나오게 된다. 하지만 시간 초과..ㅎ
+# from itertools import permutations
+# import sys
+# sys.setrecursionlimit(10**6)
+# input=sys.stdin.readline
+
+# n, m= map(int, input().split())
+
+# arr=list(map(int, input().split(" ")))
+# k=[]
+# for i in sorted(permutations(arr, m)):
+#     if i not in k:
+#         print(*i)
+#         k.append(i)
+////////////////////////////////////////////////////
+
+# 여기에서 중요한 점은 이전에 check값이 뭐였느냐에 따라서 중복되지 않게 하는 것이다!
+# 푸는 방식을 참고했기 때문에 시간이 지나서 다시 풀어야 할 문제 중 하나다..!!
+<DFS를 이용한 방법>
+n, m= map(int, input().split())
+
+arr=list(map(int, input().split(" ")))
+
+arr.sort()
+visited=[0]*n
+out=[]
+#dfs
+def dfs(depth):
+    check=0
+    if depth==m:
+        print(' '.join(map(str, out)))
+        return
+    for i in range(n):
+        if not visited[i] and arr[i] != check:
+            visited[i]=1
+            check=arr[i]
+            out.append(arr[i])
+            dfs(depth+1)
+            out.pop()
+            visited[i]=0
+
+dfs(0)
+
+-------------------------------------------------------------------------------------------------
+# 10971_외판원 순회 2.py
+
+# 풀이) 
+#       
+#       
+#       
+
