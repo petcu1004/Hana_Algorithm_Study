@@ -1,0 +1,87 @@
+# 15656_N과 M(7).py
+
+# 풀이) 위 코드를 보면 이전 N과 M처럼 라이브러리를 이용하여 푼 것이다. 훨씬 간결하고 빠르다.
+#       라이브러리가 없다면 어떻게 풀어야 할까를 알아보니 DFS를 이용하여 푸는 방법이 있어서 함께 학습해보았다.
+
+from itertools import product
+
+n, m= map(int, input().split())
+
+arr=list(map(int, input().split(" ")))
+
+for i in sorted(product((arr), repeat=m)):
+    print(*i)
+
+////////////////////////////////////////////////////
+
+<DFS를 이용한 방법>
+n, m= map(int, input().split())
+
+arr=list(map(int, input().split(" ")))
+arr.sort()
+visited=[0]*n
+out=[]
+#dfs
+def solve(depth, n, m):
+    if depth==m:
+        print(' '.join(map(str, out)))
+        return
+    for i in range(n):
+        if not visited[i]:
+            # visited[i]=1
+            out.append(arr[i])
+            solve(depth+1, n, m)
+            out.pop()
+            visited[i]=0
+
+solve(0, n, m)
+
+-------------------------------------------------------------------------------------------------
+# 10819_차이를 최대로.py
+
+# 풀이) 이 경우의 수를 다 고려해서 하면 돌아갈까? 라는 생각으로 순열로 경우의 수 다 만들고 이중 for문으로 최대값 나오게 풀었다.
+#       문제의 조건이 n이 최대 8이고, 배열에 들어있는 정수는 -100에서 100 사이 값이라 해서 값이 작길래 풀어본 것이었다.
+#       아직 이러한 주어진 조건 값을 보고 이렇게 코드를 짜면 시간초과가 날지 안날지 감을 못잡은 상태라 시간초과가 발생할 수도 있겠다 싶었는데 다행히 성공되었다.
+#       DFS로 재귀방식으로 풀 수 있지 않을까 생각이 들어서 검색해서 코드를 한 번 읽어보기만 했다. 이 문제로 DFS를 또 보니 어렵다고 느껴지는 상태이다..ㅎ
+
+from itertools import permutations
+
+n=int(input())
+arr=list(map(int, input().split(" ")))
+
+res=0
+for i in permutations(arr):
+    k=0
+    for j in range(1,n):
+        k+=abs(i[j-1]-i[j])
+    if res<k:
+        res=k
+print(res)
+
+//////////////////////////////////////////////////
+<DFS = 백트래킹>
+import sys
+
+def dfs(depth):
+    if depth == N:
+        result.append(sum(abs(explore[i] - explore[i + 1]) for i in range(N - 1)))
+        return
+    for i in range(N):
+        if visited[i]:
+            continue
+        explore.append(A[i])
+        visited[i] = 1
+        dfs(depth + 1)
+        visited[i] = 0
+        explore.pop()
+
+input = sys.stdin.readline
+N = int(input())
+A = list(map(int, input().split()))
+
+visited = [0] * N
+result, explore = [], []
+dfs(0)
+print(max(result))
+
+
