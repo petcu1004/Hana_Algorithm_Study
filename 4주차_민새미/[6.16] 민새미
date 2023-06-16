@@ -1,0 +1,62 @@
+# 15665_N과 M(11).py
+
+# 풀이) N과 M 시리즈를 풀어오면서 DFS를 이용하여 풀면 된다는 걸 알고있어서 DFS로 풀었다. 
+#       
+
+n, m = map(int, input().split())
+arr = list(map(int, input().split()))
+arr.sort()
+
+visited = [0] * n
+out = []
+depth = 0
+
+def dfs(depth):
+    check = 0
+    if m == depth:
+        print(" ".join(map(str, out)))
+        return
+    for i in range(n):
+        if not visited[i] and arr[i] != check:
+            # visited[i] = 1 #중복되어 작성이 가능하므로 방문 체크는 지우되
+            check = arr[i] # 결과값에는 이전에 출력된 값이 중복되어 들어가지 않아야 하므로 check를 이용하여 확인한다. (중복되는 수열을 여러 번 출력하면 안됨)
+            out.append(arr[i])
+            dfs(depth + 1)
+            out.pop()
+            # visited[i] = 0
+
+dfs(0)
+
+
+-------------------------------------------------------------------------------------------------
+# 6603_로또.py
+
+# 풀이) 처음 문제를 보고 조합으로 풀면 되겠다고 생각했다. DFS 관련 코드도 풀어봤고, 조합도 DFS로 풀 수 있기에 DFS 방식으로 접근했다.
+#       조합에 맞게 푼거 같은데 틀렸다고 나와서.. 뭐가 문제인지 보고있다..
+#       문제를 잘못 읽은게 문제였다..ㅠㅠㅠ 문제를 꼼꼼히 읽고 풀자..
+#       그리고 조합은 DFS 코드로 쓸 떄 visited 배열도 필요없었다. 왜냐하면 for문을 돌릴때 전부를 안돌리고, 첫번째 인덱스 기준으로 다 돌리면 안돌리기 때문이다!
+
+#(꿀팁)
+print(" ".join(map(str, out)))을 더 간단하게 쓰는 법으로는 
+print(*out) 이것이 있다!!
+
+def dfs(depth, start):
+    if depth == 6:
+        print(" ".join(map(str, out)))
+        return
+    for i in range(start, len(arr)):
+        # 조합으로 순서가 다른 리스트로 같은 조합인것! 그래서 처음 방문한 값은 다신 방문하지 않아야 함.
+        out.append(arr[i])
+        dfs(depth + 1, i + 1)
+        out.pop()
+
+
+while 1:
+    arr = list(map(int, input().split()))
+    k = arr[0]
+    arr = arr[1:]
+    out = []
+    dfs(0, 0)
+    if k == 0:
+        exit()
+    print()
