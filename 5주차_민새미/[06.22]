@@ -1,0 +1,58 @@
+# 13023_ABCDE.py
+
+# 후기)
+# DFS로 푸는 문제라고 하는데 도대체 어떻게 깊게 들어가야 하는지를 모르겠어서 코드를 참고하여 풀었다.
+# 처음 예시만 보고서는 BFS로 가능할거 같은데 싶어서 BFS로 무작정 풀었는데 예시2를 보니 아.. BFS로 풀리지 않는 문제인가 싶었다...
+# 코드를 보면서 문제 이해도 잘 안됐다는 걸 알았다. 하하. 문제는 꼼꼼히 읽고 이해한 다음에 풀자^^
+
+# 풀이)
+# A, B, C, D  4명의 친구들과의 연결이 성공의 유무를 결정하기 떄문에 깊이를 4로 지정하고 4 이상이면 성공, 4 미만이면 실패다.
+
+n, m = map(int, input().split())
+
+relations = [[] for _ in range(n)]
+
+visited = [0] * 2001  # 방문 체크
+
+ans = 0  # 성공 표시 변수
+
+for i in range(m):
+    a, b = map(int, input().split())
+    # 친구 관계 등록
+    relations[a].append(b)  # a와 연결되어 있는 친구들 추가
+    relations[b].append(a)
+
+
+def dfs(depth, idx):
+    global ans
+    visited[idx] = 1
+
+    if depth == 4:  # 친구 관계가 4번 이상 연결되어 있다면
+        ans = 1  # 성공 표시 후 리턴
+        return
+
+    for i in relations[idx]:  # 친구 관계가 존재하는 지 확인
+        if not visited[i]:
+            visited[i] = 1
+            dfs(depth + 1, i)
+            visited[i] = 0
+
+
+for i in range(n):
+    # 친구 관계 탐색
+    dfs(0, i)
+    visited[i] = 0
+    if ans:
+        break
+
+if ans:
+    print(1)
+else:
+    print(0)
+
+
+
+######################################################################
+# 1248_맞춰봐.py
+
+
